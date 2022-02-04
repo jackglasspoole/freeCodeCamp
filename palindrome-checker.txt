@@ -1,0 +1,19 @@
+function palindrome(str) {
+
+  var isPalindrome = true;
+  var regex = /\w/
+  var strArr = str
+  .split("")
+  .filter(val => regex.test(val) & val != "_")
+  .map(val => val.toLowerCase());
+
+  for(var i = 0; i < Math.floor(strArr.length/2); i++){
+    if(strArr[i] != strArr[strArr.length - i -1]){
+      isPalindrome = false; 
+      break;
+    }
+  }
+
+  return isPalindrome;
+
+}
