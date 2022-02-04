@@ -1,0 +1,59 @@
+function convertToPowersOfTen(num){
+
+  return num
+  .toString()
+  .split("")
+  .map(val => parseInt(val));
+  
+}
+
+function convertPowerOfTenToRoman(digit, power){
+
+   var romanNumerals;
+   var outputNumeral;
+
+   if(power == 0) {
+    romanNumerals = ["I", "V", "X"];
+   }
+   else if(power == 1){
+    romanNumerals = ["X", "L", "C"];
+   }
+   else if(power == 2){
+    romanNumerals = ["C", "D", "M"];
+   }
+   else if(power == 3){
+    romanNumerals = ["M"];
+   }
+
+   if(digit == 0){
+     outputNumeral = "";
+   }
+   else if(digit <= 3){
+     outputNumeral = romanNumerals[0].repeat(digit);
+   }
+   else if(digit <= 5){
+     outputNumeral = romanNumerals[0].repeat(5-digit) + romanNumerals[1];
+   }
+   else if(digit <= 8){
+     outputNumeral = romanNumerals[1] + romanNumerals[0].repeat(digit-5);
+   }
+   else if(digit == 9){
+     outputNumeral = romanNumerals[0] + romanNumerals[2];
+   }
+
+   return outputNumeral
+
+}
+
+function convertToRoman(num) {
+
+ var outputNumeral = convertToPowersOfTen(num)
+ .reverse()
+ .map((val, index) => convertPowerOfTenToRoman(val, index))
+ .reverse()
+ .join("");
+
+return outputNumeral;
+
+}
+
