@@ -1,0 +1,25 @@
+function rot13(str) {
+
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split("");
+  let strSplit = str.split("");
+
+  for(var i = 0; i < strSplit.length; i++){
+
+    var charIndex = alphabet.indexOf(strSplit[i].toLowerCase());
+
+    if(charIndex < 0) {}
+    else {
+
+      if(strSplit[i] == strSplit[i].toLowerCase()) {
+        strSplit[i] = alphabet[(charIndex + 13) % 26];
+      }
+      else {
+        strSplit[i] = alphabet[(charIndex + 13) % 26].toUpperCase();
+      }
+      
+    }
+  }
+
+  return strSplit.join("");
+
+}
