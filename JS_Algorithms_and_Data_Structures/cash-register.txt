@@ -1,0 +1,95 @@
+var currencyUnitValueDict = {
+  "PENNY": 0.01,
+  "NICKEL": 0.05,
+  "DIME": 0.1,
+  "QUARTER": 0.25, 
+  "ONE": 1,
+  "FIVE": 5,
+  "TEN": 10,
+  "TWENTY": 20, 
+  "ONE HUNDRED": 100
+
+}
+
+function isArrEquiv(arr1, arr2){
+ 
+  var output = true;
+ 
+  if(arr1.length == arr2.length){
+
+    for(var i = 0; i < arr1.length; i++){
+      if(arr1[i].length == arr2[i].length){
+        if(arr1[i].every((val, index) => val === arr2[i][index])){}
+        else{
+          output = false;
+          break;
+        }
+      }
+      else{
+        output = false;
+        break;
+      }
+    }
+  }
+  else{
+    output =  false;
+  }
+
+  return output
+
+}
+
+function isSufficientFunds(change, cid){
+  
+  var changeGiven = [];
+
+  for(var i = cid.length - 1; i >= 0; i--){
+
+    var currencyValue = currencyUnitValueDict[cid[i][0]];
+    var currencyAmount = currencyValue * Math.min(Math.floor(change / currencyValue), cid[i][1] / currencyValue);
+
+    if(currencyAmount > 0){
+
+      change = (change - currencyAmount).toFixed(2);
+      changeGiven.push([cid[i][0], currencyAmount]);
+
+    }
+
+  }
+
+  if(change == 0){
+    return [true, changeGiven];
+  }
+  else{
+    return [false, []];
+  }
+
+}
+
+function checkCashRegister(price, cash, cid) {
+  
+  var sufficientFunds = isSufficientFunds(cash - price, cid)
+  var change;
+
+  if(sufficientFunds[0] == true){
+     var outStatus = "OPEN";
+     var changeGiven = sufficientFunds[1];
+     if(isArrEquiv(cid.filter((val, index) => cid[index][1] > 0), sufficientFunds[1])){
+       outStatus = "CLOSED";
+       changeGiven = cid;
+     }
+     change = {
+       status: outStatus,
+       change: changeGiven
+     };
+  }
+  else{
+    change = {
+      status: "INSUFFICIENT_FUNDS",
+      change: []
+    }
+  }
+
+  return change;
+
+}
