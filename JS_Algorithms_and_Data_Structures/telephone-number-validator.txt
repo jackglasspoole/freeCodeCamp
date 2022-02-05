@@ -1,0 +1,48 @@
+function telephoneCheck(str) {
+  var output = false;
+
+/* Addressing the start of the string */
+/* Removing 1 from start */
+  var regexOneWhiteSpace = /^1\s/;
+  var regexOneBracket = /^1\(/;
+  if(regexOneWhiteSpace.test(str)){
+    str = str.slice(2);
+  }
+  if(regexOneBracket.test(str)){
+    str = str.slice(1);
+  }
+
+/* Removing brackets and dashes and white space */
+  var regexStartBracketDigitsSpace = /^\([0-9]{3}\)\s/;
+  var regexStartBracketDigits = /^\([0-9]{3}\)/;
+  var regexStartDigitDash = /^[0-9]{3}\-/;
+  var regexStartDigitSpace = /^[0-9]{3}\s/;
+
+  if(regexStartBracketDigitsSpace.test(str)){
+    str = str.slice(1, 4) + str.slice(6);
+  }
+  else if(regexStartBracketDigits.test(str)){
+    str = str.slice(1, 4) + str.slice(5);
+  }
+  else if(regexStartDigitDash.test(str) | regexStartDigitSpace.test(str)){
+    str = str.slice(0, 3) + str.slice(4);
+  }
+
+/* Addressing the end of the string */
+/* Removing brackets and dashes and white space */
+  var regexEndDashDigits = /\-[0-9]{4}$/;
+  var regexEndSpaceDigits = /\s[0-9]{4}$/;
+  if(regexEndDashDigits.test(str) | regexEndSpaceDigits.test(str)){
+    str = str.slice(0, str.length - 5) + str.slice(str.length - 4);
+  }
+
+/* General checks */
+/* Checking all numeric and length */
+  var regexIsAllNumeric = /^[0-9]{10}$/
+  if(regexIsAllNumeric.test(str)){
+    output = true;
+  }
+  
+  return output;
+
+}
