@@ -1,2 +1,2 @@
 # freeCodeCamp
-Repository containing my solutions to the freeCodeCamp projects at the end of a course
+Repository containing my solutions to the projects elements of the freeCodeCamp courses I have undertaken.
